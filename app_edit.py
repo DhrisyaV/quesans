@@ -75,7 +75,7 @@ def index():
              " kid usually move sleeping crib bed",
              "juice from orange peel supposed good eyes",
             "coffee bad skin"]
-		
+		ans=[]
 		app.logger.info(repr(request.form))
 		question = request.form['question']
 
@@ -92,16 +92,21 @@ def index():
         		for row in csv.reader(inp):
 					topic_text=""
 					if row[1]==category:
-						if cosine_sim_edit.main(row[2],sub_category)>0.9:
-							val=cosine_sim_edit.main(row[4],q_edit)
+						if cosine_sim_edit.main(row[2],sub_category)>0:
+							val = cosine_sim_edit.main(row[4],q_edit)
 							for i in row[5]:
-								topic_text=topic_text+" "+i
+								
+								topic_text=topic_text+i
 							if topic_text:
+								
 								val1=cosine_sim_edit.main(topic_text,q_edit)
-								if val>0.9 and val1>0.9:
-									print row[3], val, val1
-							elif val>0.9:
-								print row[3], val
+								if val>0 and val1>0:
+									#print row[3], val, val1
+									k=(row[3],val1)
+									ans.append(k)
+		print ans
+							#elif val>0:
+								#print row[3], val
 
 
 

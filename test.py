@@ -12,6 +12,7 @@ WORD = re.compile(r'\w+')
 
 def get_cosine(vec1, vec2):
      intersection = set(vec1.keys()) & set(vec2.keys())
+     print intersection
      numerator = sum([vec1[x] * vec2[x] for x in intersection])
 
      sum1 = sum([vec1[x]**2 for x in vec1.keys()])
@@ -23,6 +24,7 @@ def get_cosine(vec1, vec2):
      else:
         return float(numerator) / denominator
 
+    
 def text_to_vector(text): 
     #words = WORD.findall(text)
     synonyms=[]
@@ -44,11 +46,11 @@ def text_to_vector(text):
 
             if syn_name_split[1]==tag_variable:
                 if syn_name_split[0] not in k:
-                    #print syn_name_split[0]
+                    print syn_name_split[0]
                     k.append(syn_name_split[0])
-                    #print syn_name
+                    print syn_name
                     for l in syn.lemmas():
-                        #print l
+                        print l
                         for final_name in l.name().split('_'):
                             synonyms.append(final_name)
     return Counter(synonyms)
@@ -57,16 +59,16 @@ def text_to_vector2(text):
      words = WORD.findall(text)
      return Counter(words)
 
-#text1 = 'Primary Secondary Education'
-#text2 = 'Other - Education'
+text1 = 'Programming'
+text2 = 'Software'
 #maincat exactly same row[1]
 #subcat similarity greater than 0.9
 #check similarity of both preprocessed question and topics found out
 
-def main(text1,text2):
-    vector1 = text_to_vector(text1)
-    vector2 = text_to_vector(text2)
-    cosine = get_cosine(vector1, vector2)
+vector1 = text_to_vector(text1)
+vector2 = text_to_vector(text2)
+#print vector1
+#print vector2
+cosine = get_cosine(vector1, vector2)
 
-    print text1,'Cosine:', cosine
-    return cosine
+print 'Cosine:', cosine
