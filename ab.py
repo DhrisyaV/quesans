@@ -12,7 +12,7 @@ def main(word):
 		
 		for row in reader:
 			if word == row[0]:
-				print  word,'->', row[1]
+				#print  word,'->', row[1]
 				word=row[1]
 				break
 	return word

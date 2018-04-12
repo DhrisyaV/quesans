@@ -10,7 +10,7 @@ def main(g):
   #for i in lis:
   chkr.set_text(g)
   for err in chkr:
-    print "ERROR:", err.word
+    #print "ERROR:", err.word
     if d.suggest(err.word):
         sug=d.suggest(err.word)
         g=sug[0]

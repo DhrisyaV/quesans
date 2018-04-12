@@ -1,8 +1,15 @@
+#!/usr/bin/python
+
+# encoding=utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 import re, math
 from collections import Counter
 import nltk
 from nltk.corpus import wordnet
 from textblob import TextBlob
+from nltk.stem.porter import PorterStemmer
 
 
 adje = re.compile("JJ.*") 
@@ -25,8 +32,10 @@ def get_cosine(vec1, vec2):
 
 def text_to_vector(text): 
     #words = WORD.findall(text)
+    porter_stemmer = PorterStemmer()
     synonyms=[]
-    blob = TextBlob(text)           #tokenize the question
+    blob = TextBlob(text)  
+            #tokenize the question
     q_tagged = blob.tags
     for i in q_tagged:
         if adje.match(i[1]):
@@ -37,6 +46,9 @@ def text_to_vector(text):
             tag_variable = 'v'
         else:
             continue
+        
+        
+
         k=[]
         for syn in wordnet.synsets(i[0]):
             syn_name = syn.name()
@@ -50,7 +62,10 @@ def text_to_vector(text):
                     for l in syn.lemmas():
                         #print l
                         for final_name in l.name().split('_'):
+                            #stem_word = porter_stemmer.stem(final_name)
                             synonyms.append(final_name)
+                            #synonyms.append(stem_word)
+
     return Counter(synonyms)
 
 def text_to_vector2(text):
