@@ -108,7 +108,7 @@ def index():
 								if val>0.01 and val1>0.01:
 									#print row[3], val, val1
 									k=(row[3],val1)
-									ans.append(k)#best answer in 7th column, 8th,9th non best
+									ans.append(k)
 		ans=sorted(ans, key=lambda x:x[1], reverse=True)
 		print ans[0:10]
 	return render_template('index.html',page="home",history=history)
